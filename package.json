@@ -1,0 +1,40 @@
+{
+  "name": "winctl",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./examples/basic.js",
+    "configure": "node-gyp configure",
+    "debug": "node-gyp rebuild",
+    "build": "node-gyp rebuild --target=1.8.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nan": "^2.2.0",
+    "node-gyp": "^3.2.1"
+  },
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "find-process": "^1.1.0"
+  },
+  "os": [
+    "win32"
+  ],
+  "gypfile": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thraaawn/winctl.git"
+  },
+  "keywords": [
+    "windows",
+    "window",
+    "autohotkey",
+    "desktop"
+  ],
+  "bugs": {
+    "url": "https://github.com/thraaawn/winctl/issues"
+  },
+  "homepage": "https://github.com/thraaawn/winctl"
+}
