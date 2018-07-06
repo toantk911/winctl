@@ -1,20 +1,14 @@
 'use strict';
 
 var winctl = require('../');
-var path = require('path');
 
 var activeWindow = winctl.GetActiveWindow();
 winctl.Events.addListener("active-window", function (now, prev) {
   var desc = now.getDescription();
   now.readableName = (!desc || desc == "Application Frame Host") ? now.getTitle() : desc;
-  console.log(`Changed active window to: ${now.readableName} [desc=${now.getDescription()}, title=${now.getTitle()}, process=${path.parse(now.getFullProcessImageName()).name}]`);
+  console.log(`Changed active window to: ${now.readableName} [desc=${now.getDescription()}, title=${now.getTitle()}]`);
   activeWindow = now;
 });
-
-setInterval(function () {
-  console.log(winctl.GetIdleTime());
-  console.log(getActiveDocument());
-}, 1000);
 
 function getActiveDocument() {
   var window_title = activeWindow.getTitle();
@@ -30,3 +24,19 @@ function getActiveDocument() {
 
   return null;
 }
+
+setInterval(function () {
+  winctl.GetIdleTime();
+}, 1000);
+
+setTimeout(function (){
+  console.log('Start check title for 30s!');
+  winctl.Events.addListener("change-title", function(now, prev) {
+    console.log("Changed window title to: %s [prev=%s]", now, prev);
+  });
+}, 10000);
+
+setTimeout(function (){
+  console.log('Stop check title!');
+  winctl.Events.removeAllListeners("change-title");
+}, 40000);

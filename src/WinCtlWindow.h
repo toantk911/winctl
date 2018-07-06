@@ -33,7 +33,6 @@ private:
 	static NAN_METHOD(getMonitor);
 
 	static NAN_METHOD(getDescription);
-	static NAN_METHOD(getFullProcessImageName);
 
 	static NAN_METHOD(setForegroundWindow);
 	static NAN_METHOD(setWindowPos);

@@ -24,7 +24,6 @@ NAN_MODULE_INIT(Window::Init)
 	Nan::SetPrototypeMethod(tpl, "getAncestor", getAncestor);
 	Nan::SetPrototypeMethod(tpl, "getMonitor", getMonitor);
 	Nan::SetPrototypeMethod(tpl, "getDescription", getDescription);
-	Nan::SetPrototypeMethod(tpl, "getFullProcessImageName", getFullProcessImageName);
 
 	Nan::SetPrototypeMethod(tpl, "setForegroundWindow", setForegroundWindow);
 	Nan::SetPrototypeMethod(tpl, "setWindowPos", setWindowPos);
@@ -302,22 +301,6 @@ NAN_METHOD(Window::getDescription)
 
 	delete[] pBlock;
 	info.GetReturnValue().Set(Nan::New(wnd_description).ToLocalChecked());
-}
-
-NAN_METHOD(Window::getFullProcessImageName)
-{
-	Window *obj = Nan::ObjectWrap::Unwrap<Window>(info.This());
-
-	DWORD lpdwProcessId;
-	GetWindowThreadProcessId(obj->windowHandle, &lpdwProcessId);
-
-	DWORD max_path = 256;
-	char wnd_path[256];
-	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, lpdwProcessId);
-	BOOL ret = QueryFullProcessImageName(hProcess, 0, wnd_path, &max_path);
-	CloseHandle(hProcess);
-
-	info.GetReturnValue().Set(Nan::New(wnd_path).ToLocalChecked());
 }
 
 NAN_METHOD(Window::setForegroundWindow)

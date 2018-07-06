@@ -93,6 +93,7 @@ class WindowEventsEmitter extends EventEmitter {
 		super();
 
 		this.activeWindow = winctl.GetActiveWindow();
+		this.activeTitle = this.activeWindow.getTitle();
 		this.existingWindows = null;
 
 		this.eventLoops = {
@@ -104,6 +105,11 @@ class WindowEventsEmitter extends EventEmitter {
 			"window-list": {
 				func: this.checkNewWindow.bind(this),
 				events: ["open-window", "close-window"],
+				interval: 50
+			},
+			"change-title": {
+				func: this.checkWindowTitle.bind(this),
+				events: ["change-title"],
 				interval: 50
 			}
 		};
@@ -166,6 +172,14 @@ class WindowEventsEmitter extends EventEmitter {
 
 
 		});
+	}
+
+	checkWindowTitle() {
+		var currentTitle = winctl.GetActiveWindow().getTitle();
+		if(currentTitle != this.activeTitle) {
+			this.emit("change-title", currentTitle, this.activeTitle);
+			this.activeTitle = currentTitle;
+		}
 	}
 }
 
