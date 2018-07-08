@@ -1,5 +1,5 @@
-#ifndef SRC_MODULE_H_
-#define SRC_MODULE_H_
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT  0x0600
 #endif
 
 #include "WinCtlWindow.h"
