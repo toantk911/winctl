@@ -1,6 +1,10 @@
+#ifndef SRC_MODULE_H_
+#define SRC_MODULE_H_
+#endif
+
 #include "WinCtlWindow.h"
 #include "windows.h"
-#include <Strsafe.h>
+#include "Strsafe.h"
 
 #pragma comment(lib, "version")
 
